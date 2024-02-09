@@ -2,6 +2,7 @@
 #include <limits.h>
 
 int uadd_ok(unsigned x, unsigned y);
+int taad_ok(int x, int y);
 
 int uadd_ok(unsigned x, unsigned y)
 {
@@ -16,14 +17,28 @@ int uadd_ok(unsigned x, unsigned y)
     }
 }
 
+int tadd_ok(int x, int y)
+{
+    int sum = x + y;
+
+    if (x < 0 && y < 0 && sum >= 0 || x > 0 && y > 0 && sum <= 0) // conditional test for pos overflow and negative overflow
+    {
+        return 0;
+    }
+    else {
+        return 1;
+    }
+
+}
+
 int main()
 {
-    unsigned x = 10; // uni max which is the max limit for the bit size - 1
-    unsigned y = 2; 
+    int x = 21; // the max size of an int with a 32 bit system
+    int y = 1;
 
     printf("Test Cases\n\nx = %d\ny = %d\n\nOutput: ", x, y);
 
-    printf("%d\n", uadd_ok(x, y));
+    printf("%d\n", tadd_ok(x, y));
 
     return 0;
 }
