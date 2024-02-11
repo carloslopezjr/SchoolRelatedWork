@@ -2,39 +2,38 @@
 #include <stdlib.h>
 
 // pop function - will go to the last index of the array and remove it
-void pop(int *top) {
-    // remove the top element 
+void pop(int *top)
+{
+    // remove the top element
     (*top)--;
-    printf("The top index is now: %d\n", top);
-
+    // printf("The top index is now: %d\n", *top); // Dereference the pointer to print the value
 }
 
-void push(int *top, int value, char *stack) {
+void push(int *top, char value, char *stack)
+{ 
     (*top)++;
     stack[*top] = value;
-    printf("The top index is now: %d\n", top);
+    // printf("The top index is now: %d\n", *top); // Dereference the pointer to print the value
 }
 
-// push function - will add a value to the end of the array
+int main()
+{
 
-// stack array - will hold all the values in the stack
-
-
-
-int main() {
-
-    int size = 10; 
+    int size = 10;
     char *exp = malloc(size * sizeof(char));
     int ch, i = 0;
 
-    printf("Carlos Lopez - nvu267 - Spring 2024\n\n");
+    printf("Carlos Lopez - nvu267 - Spring 2024\n");
 
     printf("Enter expression: ");
-    while((ch = getchar()) != '\n' && ch != EOF) {
-        if(i == size) {
+    while ((ch = getchar()) != '\n' && ch != EOF)
+    {
+        if (i == size - 1)
+        { 
             size *= 2;
             exp = realloc(exp, size * sizeof(char));
-            if (exp == NULL) {
+            if (exp == NULL)
+            {
                 printf("No Memory Allocated.\n");
                 return 1;
             }
@@ -47,33 +46,53 @@ int main() {
     int k = 0;
     int top = -1;
 
-    printf("This is the expression: %s\n", exp);
+    // printf("This is the expression: %s\n", exp);
 
-    char *stack = malloc(size *sizeof(char)); // allocate memory for the stack
+    char *stack = malloc(100 * sizeof(char));
 
-    while (k <= i) {
+    while (k < i)
+    { 
 
-        if (exp[k] == '(' || exp[k] == '[' || exp[k] == '{') {
-            
-            // if there's an open parenthesis, we want to push that to the stack
-            push(&top, exp[k], stack); // there's an issue with the push function
-            k++; // increment k
+        if (exp[k] == '(' || exp[k] == '[' || exp[k] == '{')
+        {
+
+            push(&top, exp[k], stack); 
+            k++;
         }
-        else if (exp[k] == ')' || exp[k] == ']' || exp[k] == '}') {
+        else if (exp[k] == ')' || exp[k] == ']' || exp[k] == '}')
+        {
 
-            if (stack[top] == exp[k]) {
-                pop(&top); // pop function
+            if (top >= 0 && ((exp[k] == ')' && stack[top] == '(') ||
+                             (exp[k] == ']' && stack[top] == '[') ||
+                             (exp[k] == '}' && stack[top] == '{')))
+            {
+                pop(&top);
+            }
+            else
+            {
+                printf("It's Not Balanced (0_0)\n");
+                return 1;
             }
 
-            k++; // increment k
-            break;    
-        } else {
-            printf("Couldn't find match\n");
-            k++; // if nothing is met, just continue
+            k++;
+        }
+        else
+        {
+            k++;
         }
     }
 
-    printf("This is the final stack: %s\n", stack);
-    
+    if (top == -1)
+    {
+        printf("It's Balanced (^_^)\n");
+    }
+    else
+    {
+        printf("It's Not Balanced (0_0)\n");
+    }
+
+    free(exp); // Free allocated memory
+    free(stack);
+
     return 0;
 }
