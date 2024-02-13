@@ -119,16 +119,24 @@ int main()
 
     printf("Carlos Lopez, nvu267 <Spring 2024>\n");
     printf("Enter the Infix Expression: \n");
-    gets(infix);
+    fgets(infix, sizeof(infix), stdin);
+
+    size_t len = strlen(infix);
+    if (infix[len - 1] == '\n')
+    {
+        infix[len - 1] = '\0';
+    }
 
     postStack();
     printf("The Postfix expression: \n");
-    for (int i = 0; postfix[i] != '\0'; i++)
-    {
+    for (int i = 0; i < strlen(postfix); i++) {
         printf("%c ", postfix[i]);
     }
 
     printf("\n");
+    printf("End of Program\n");
+
+
 
     return 0;
 }
