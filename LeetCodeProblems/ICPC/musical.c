@@ -45,10 +45,12 @@ int main()
         }
     }
 
-    if (cd1 > cd2) {
+    if (cd1 > cd2)
+    {
         printf("%d %d", cd1, cd2);
     }
-    else {
+    else
+    {
         printf("%d %d", cd2, cd1);
     }
 
