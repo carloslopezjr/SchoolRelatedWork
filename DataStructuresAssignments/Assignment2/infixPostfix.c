@@ -3,16 +3,13 @@
 #include <stdlib.h>
 #include <time.h>
 
-
 // initial stacks
 char inputStack[100];
 char infix[100];
 char postfix[100];
 
-
 // intital value for top
 int top = -1;
-
 
 // looks to see if top is maxed out, if not, increase top and add character
 void push(char ch)
@@ -28,7 +25,6 @@ void push(char ch)
     top++;
     inputStack[top] = ch;
 }
-
 
 // checks value of top and returns 0 or 1 depending if it's at the initial value
 int isEmpty()
@@ -89,15 +85,13 @@ void postStack()
         if (operation == '(') // if operation is ( then push into inputStack
         {
             push(operation);
-            
         }
-        else if (operation == ')') 
+        else if (operation == ')')
         {
             while ((temp = pop()) != '(')
             {
                 postfix[j++] = temp;
             }
-            
         }
         else if (operation == '+' || operation == '-' || operation == '*' || operation == '/' || operation == '^') // if operation equals any one of these, it will check to see if the stack is empty and if the top of the stack is greater precedence than the one below it
         {
@@ -106,7 +100,6 @@ void postStack()
                 postfix[j++] = pop();
             }
             push(operation);
-            
         }
         else
         {
@@ -130,7 +123,8 @@ int main()
 
     postStack();
     printf("The Postfix expression: \n");
-    for (int i = 0; postfix[i] != '\0'; i++) {
+    for (int i = 0; postfix[i] != '\0'; i++)
+    {
         printf("%c ", postfix[i]);
     }
 
