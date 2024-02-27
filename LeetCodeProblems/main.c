@@ -23,5 +23,5 @@ char *simplifyPath(char *path)
     printf("%s\n", newString);
 
     return newString;
-    
+    // test
 }
